@@ -8,9 +8,6 @@ export interface StitchConfig {
   engines?: {
     [name: string]: (filePath, locals) => string
   }
-
-  /** Enable styled-components support */
-  styledComponents: boolean
 }
 
 export interface StitchOptions {

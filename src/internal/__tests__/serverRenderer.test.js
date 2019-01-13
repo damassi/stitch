@@ -1,7 +1,4 @@
 import React from "react"
-import styled, {
-  __DO_NOT_USE_OR_YOU_WILL_BE_HAUNTED_BY_SPOOKY_GHOSTS,
-} from "styled-components"
 import { serverRenderer } from "../serverRenderer"
 import { uniq } from "lodash"
 
@@ -12,11 +9,6 @@ const modules = {
 }
 
 describe("serverRenderer", () => {
-  beforeEach(() => {
-    // For Jest. See: https://github.com/styled-components/styled-components/issues/1692
-    const { StyleSheet } = __DO_NOT_USE_OR_YOU_WILL_BE_HAUNTED_BY_SPOOKY_GHOSTS
-    StyleSheet.reset(true)
-  })
   it("returns mapped components", () => {
     const { components } = serverRenderer({
       modules,
@@ -53,20 +45,6 @@ describe("serverRenderer", () => {
         mountId: "myCustomMountId",
       })
     ).toContain('id="myCustomMountId"')
-  })
-
-  it("renders component css", () => {
-    const Wrapper = styled.div`
-      background-color: purple;
-    `
-
-    const { components } = serverRenderer({
-      modules: {
-        Wrapper,
-      },
-    })
-
-    expect(components.Wrapper()).toContain("background-color:purple;")
   })
 
   it("creates unique id for each render", () => {

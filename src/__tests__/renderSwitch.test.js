@@ -55,8 +55,4 @@ describe("src/renderSwitch", () => {
 
     expect(html).toMatch(title)
   })
-
-  it("extracts styled-components if config.styledComponents = true", () => {
-    // FIXME: https://github.com/styled-components/styled-components/issues/975
-  })
 })

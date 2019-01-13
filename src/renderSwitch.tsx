@@ -13,12 +13,11 @@ type RenderSwitchOptions = Pick<
 export async function renderSwitch(
   block: Block,
   options: RenderSwitchOptions
-): Promise<{ html: string; css: string }> {
+): Promise<{ html: string }> {
   let html = ""
-  let css = ""
 
   if (!block) {
-    return { html, css }
+    return { html }
   }
 
   const {
@@ -30,7 +29,6 @@ export async function renderSwitch(
 
   const config: StitchConfig = {
     componentRenderer: ReactDOM.renderToString,
-    styledComponents: false,
     ...options.config,
   }
 
@@ -49,19 +47,7 @@ export async function renderSwitch(
 
     if (isReact) {
       const Component = block as ComponentClass<any>
-
-      if (config.styledComponents) {
-        const { ServerStyleSheet } = require("styled-components")
-        const sheet = new ServerStyleSheet()
-
-        html = config.componentRenderer(
-          sheet.collectStyles(<Component {...props} />)
-        )
-
-        css = sheet.getStyleTags()
-      } else {
-        html = config.componentRenderer(<Component {...props} />)
-      }
+      html = config.componentRenderer(<Component {...props} />)
     } else {
       html = config.componentRenderer((block as any)(props))
     }
@@ -75,5 +61,5 @@ export async function renderSwitch(
     }
   }
 
-  return { html, css }
+  return { html }
 }

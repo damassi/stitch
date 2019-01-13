@@ -33,10 +33,9 @@ export async function render(
     try {
       const renderedBlocks = await Promise.all(
         keys.map(async key => {
-          const { html, css } = await renderSwitch(block[key], options)
+          const { html } = await renderSwitch(block[key], options)
 
           return {
-            css,
             html,
             key,
           }
@@ -48,12 +47,7 @@ export async function render(
         {}
       )
 
-      const css = renderedBlocks
-        .filter(({ css }) => !isEmpty(css))
-        .map(({ css }) => css)
-        .join("")
-
-      return [blockMap, css]
+      return [blockMap]
     } catch (error) {
       throwError(error)
     }

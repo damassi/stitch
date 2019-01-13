@@ -9,7 +9,6 @@ export async function stitch(options: StitchOptions) {
     config = {
       componentRenderer: ReactDOM.renderToString,
       engines: {},
-      styledComponents: false,
     },
     data = {},
     locals = {},

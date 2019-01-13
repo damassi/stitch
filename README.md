@@ -39,13 +39,12 @@ Out of the box, Stitch aims for flexibility.
 - [Isomorphic / "Universal" Rendering](#isomorpic-or-universal-rendering)
 - [Precompiling templates](#precompiling-templates)
 - [Preact and other custom renderers](#custom-renderers)
-- [`<StyledComponents />` support](#styled-components-support)
 - [SSR Middleware](/src/internal/README.md)
 - [Full API](#full-api)
 - [Troubleshooting](#troubleshooting)
 - [Development](#development)
 
-(If you want to jump right in, see the [full example project](https://github.com/artsy/stitch/tree/master/examples/6-isomorphic-react-styled-components-backbone-pug-webpack).)
+(If you want to jump right in, see the [full example project](https://github.com/artsy/stitch/tree/master/examples/5-isomorphic-react-backbone-pug-webpack).)
 
 #### Basic Example
 
@@ -272,7 +271,7 @@ res.send(html)
 
 #### Isomorpic (or "Universal") rendering
 
-This is covered in more depth in the [isomorphic-react-pug-webpack example](https://github.com/artsy/stitch/tree/master/examples/6-isomorphic-react-styled-components-backbone-pug-webpack) but in short, since the `data` object is injected into the template before rendering takes place, making it available on the client is as easy as `JSON.stringifying` it:
+This is covered in more depth in the [isomorphic-react-pug-webpack example](https://github.com/artsy/stitch/tree/master/examples/5-isomorphic-react-backbone-pug-webpack) but in short, since the `data` object is injected into the template before rendering takes place, making it available on the client is as easy as `JSON.stringifying` it:
 
 ```pug
 // - templates/layout.pug
@@ -462,45 +461,6 @@ const html = await stitch({
 })
 ```
 
-#### Styled Components Support
-
-If your React app uses [`styled-components`](https://www.styled-components.com/), ensure you've installed [babel-plugin-styled-components](https://github.com/styled-components/babel-plugin-styled-components) and enable server-side rendering via config:
-
-```js
-import styled from "styled-components"
-
-const html = await stitch({
-  layout: "templates/layout.pug",
-  config: {
-    styledComponents: true,
-  },
-  blocks: {
-    body: props => {
-      const Layout = styled.div`
-        background: purple;
-        border: 1px solid black;
-        color: white;
-        width: 100%;
-      `
-
-      return <Layout>Hello Styled Components!</Layout>
-    },
-  },
-})
-```
-
-Lastly, make sure to mount your styles in your layout template:
-
-```pug
-html
-  head
-    != css
-
-  body
-    #react-root
-      != body
-```
-
 ## Full API
 
 ```js
@@ -592,17 +552,6 @@ const html = await stitch({
        * @type {Function}
        */
     },
-
-    /**
-     * If your project uses <StyledComponents /> and you would like to extract
-     * styles from your component during server-side renders, set this to true.
-     *
-     * See https://www.styled-components.com/docs/advanced#server-side-rendering
-     * for more information.
-     *
-     * @type {Boolean}
-     */
-    styledComponents: false
   }
 })
 ```
